@@ -1,0 +1,10 @@
+.vs/
+Models/bin/
+Models/obj/
+SCRO/bin/
+SCRO/obj
+SCRO.sln
+SCRO.csproj
+bin/
+desktop.ini
+obj/

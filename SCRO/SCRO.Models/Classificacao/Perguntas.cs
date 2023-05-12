@@ -1,11 +1,10 @@
-﻿using Models.SCRO.Models.Classificacao;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace SCRO.Models.Classificacao
+using SCRO.Models.Classificacao;
+namespace Models.Classificacao
 {
     public class Perguntas
     {

@@ -6,15 +6,11 @@ using System.Threading.Tasks;
 
 namespace SCRO.Models.Classificacao
 {
-    public class Resultado
+    public class CategoriaPergunta
     {
-        enum resultadoClassificacaoCor
+        public enum Categoria
         {
-            vermelho,
-            laranja,
-            amarelo,
-            verde,
-            azul
+
         }
     }
 }

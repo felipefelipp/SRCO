@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.SCRO.Models.Classificacao
+namespace SCRO.Models.Classificacao
 {
     internal class Respostas
     {

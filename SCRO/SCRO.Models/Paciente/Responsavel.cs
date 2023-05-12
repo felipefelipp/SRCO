@@ -16,5 +16,7 @@ namespace Models.SCRO.Models.Paciente
                            ) : base(nome, idade, cPF, rG, celular)
         {
         }
+
+        public Responsavel() { }
     }
 }

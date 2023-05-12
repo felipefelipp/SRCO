@@ -1,4 +1,5 @@
-﻿using SCRO.Models.Paciente;
+﻿using Models.SCRO.Models.Paciente;
+using SCRO.Models.Paciente;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,9 +30,7 @@ namespace SCRO.Views.Consulta
             Console.WriteLine("Informe o nome do paciente: ");
             paciente.Nome = Console.ReadLine();
             Console.WriteLine("Informe a idade do paciente: ");
-            paciente.Idade = Console.Read();
-            //Console.WriteLine("Informe o Responsavel do paciente: ");
-            paciente.Responsavel = null; //Provisorio
+            paciente.Idade = int.Parse(Console.ReadLine());
             Console.WriteLine("Informe o CPF do paciente: ");
             paciente.CPF = int.Parse(Console.ReadLine());
             Console.WriteLine("Informe o RG do paciente: ");
@@ -56,8 +55,23 @@ namespace SCRO.Views.Consulta
             paciente.Profissao = Console.ReadLine();
             Console.WriteLine("Informe o email do paciente: ");
             paciente.Email = Console.ReadLine();
+            Console.WriteLine("Paciente possui responsável? [1] - Sim [2] - Não");
+            char possuiResponsavel = Console.ReadLine()[0];
+            if(possuiResponsavel == '1')
+            {
+                Responsavel responsavel = new Responsavel();
+                CadastrarResponsavelView cadastroResponsavel = new CadastrarResponsavelView();
+                cadastroResponsavel.menuCadastrarResponsavel(responsavel);
+                paciente.Responsavel = responsavel;
+            } else
+            {
+                paciente.Responsavel = null; 
+            }
+          
             return paciente;
         }
+
+
         public void ExibirPaciente(Paciente paciente)
         {
             Console.WriteLine(paciente.Nome);

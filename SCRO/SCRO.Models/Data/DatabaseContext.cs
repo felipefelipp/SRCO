@@ -4,20 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
-using System.Data.SqlClient;    
+using System.Data.SqlClient;
+ 
 
 
 namespace SCRO.Models.Data
 {
     public class DatabaseContext
     {
+        protected string connectionString = "Data Source=localhost;Initial Catalog=SCRO;Integrated Security=True";
+
         public DatabaseContext() 
         {
             Conectar();
-           
 
         }
-        readonly string connectionString = "Data Source=localhost;Initial Catalog=SCRO;Integrated Security=True";
         
         public void Conectar()
         {

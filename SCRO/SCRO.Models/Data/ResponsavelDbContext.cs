@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.SCRO.Models.Classificacao
+namespace SCRO.Models.Data
 {
-    public class Classificacao
+    public class ResponsavelDbContext
     {
+
+        
     }
 }

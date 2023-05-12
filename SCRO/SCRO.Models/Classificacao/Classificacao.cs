@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.SCRO.Models.Classificacao
+namespace SCRO.Models.Classificacao
 {
-    public class CategoriaPergunta
+    public class Classificacao
     {
-        public enum Categoria
-        {
-
-        }
     }
 }

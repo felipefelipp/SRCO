@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Data.SqlClient;
 
 namespace SCRO.Models.Data
 {
@@ -16,7 +16,9 @@ namespace SCRO.Models.Data
         {
             
         }
-        
+
+
+
         public void InsertPaciente(Paciente.Paciente paciente)
         {
             string queryInsert = $"INSERT INTO PACIENTE (nome" +
@@ -34,23 +36,34 @@ namespace SCRO.Models.Data
                                                       $",profissao" +
                                                       $",email" +
                                                       $",inseridoPor" +
-                                                      $",inseridoEm" +
-                                 $"VALUES ({paciente.Nome}" +
+                                                      $",inseridoEm)" +
+                                 $"VALUES ('{paciente.Nome}'" +
                                        $", {paciente.Idade}" +
                                        $", NULL" + // Adicionar responsavel
                                        $", {paciente.CPF}" +
                                        $", {paciente.RG}" +
                                        $", {paciente.Celular}" +
                                        $", {paciente.Telefone}" +
-                                       $", {paciente.Bairro}" +
-                                       $", {paciente.Municipio}" +
-                                       $", {paciente.UF}" +
+                                       $", '{paciente.Bairro}'" +
+                                       $", '{paciente.Municipio}'" +
+                                       $", '{paciente.UF}'" +
                                        $", {paciente.CEP}" +
-                                       $", {paciente.Sexo}" +
-                                       $", {paciente.Profissao}" +
-                                       $", {paciente.Email}" +
+                                       $", '{paciente.Sexo}'" +
+                                       $", '{paciente.Profissao}'" +
+                                       $", '{paciente.Email}'" +
                                        $", 1" +
-                                       $", GETDATE()";
+                                       $", GETDATE())";
+
+             using (SqlConnection connection = new SqlConnection(connectionString))
+             {
+               connection.Open();
+
+                using (SqlCommand command = new SqlCommand(queryInsert, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+            }
+            
         }
     }
 }

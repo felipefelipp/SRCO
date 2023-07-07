@@ -1,11 +1,11 @@
-﻿using SCRO.Views.Consulta;
+using SCRO.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SCRO.SRCO.Views.Consulta
+namespace SCRO.Views
 {
     public static class MenuInicialView
     {

@@ -1,6 +1,6 @@
-﻿using SCRO.Models.Paciente;
+using SCRO.Models.Paciente;
 using SCRO.SCRO.Models.Data;
-using SCRO.Views.Consulta;
+using SCRO.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;

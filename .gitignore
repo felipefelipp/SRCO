@@ -1,6 +1,14 @@
 .vs/
+<<<<<<< HEAD
 SCRO/bin/
 SCRO/obj
+=======
+Models/bin/
+Models/obj/
+SCRO/bin/
+SCRO/obj
+SCRO.sln
+>>>>>>> 1233f289b4f52d9afd3866216d0e6c6d432c29b3
 SCRO.csproj
 bin/
 desktop.ini

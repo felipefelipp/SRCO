@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SCRO.Views.Consulta
+namespace SCRO.Views
 {
-    public class ClassificarPacienteView
+    public class ClassificarPaciente
     {
     }
 }

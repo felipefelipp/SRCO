@@ -1,4 +1,4 @@
-﻿using Models.SCRO.Models.Paciente;
+using Models.SCRO.Models.Paciente;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Models.Classificacao;
 using Models.SCRO.Models.Paciente;
 using SCRO.Models.Classificacao;

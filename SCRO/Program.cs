@@ -1,8 +1,8 @@
-﻿using Models.SCRO.Models.Paciente;
+using Models.SCRO.Models.Paciente;
 using SCRO.Controllers;
 using SCRO.Models.Paciente;
 using SCRO.SCRO.Models.Data;
-using SCRO.SRCO.Views.Consulta;
+using SCRO.Views;
 
 Random random = new Random();
 

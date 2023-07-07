@@ -3,10 +3,10 @@ using Models.SCRO.Models.Paciente;
 using SCRO.Controllers;
 using SCRO.Models.Classificacao;
 using SCRO.Models.Paciente;
-using SCRO.SRCO.Views.Consulta;
+using SCRO.Views;
 using System;
 
-namespace SCRO.Views.Consulta
+namespace SCRO.Views
 {
     public static class PacienteView
     {
@@ -459,3 +459,4 @@ namespace SCRO.Views.Consulta
         }
     }
 }
+﻿

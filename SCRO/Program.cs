@@ -4,7 +4,7 @@ using SCRO.Models.Paciente;
 using SCRO.SCRO.Models.Data;
 using SCRO.Views;
 
-Random random = new Random();
+Random random = new Random(); 
 
 Paciente paciente1 = new Paciente(
     responsavel: 0,

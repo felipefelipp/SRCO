@@ -1,4 +1,4 @@
-﻿using Microsoft.IdentityModel.Tokens;
+using Microsoft.IdentityModel.Tokens;
 using Models.SCRO.Models.Paciente;
 using SCRO.Controllers;
 using SCRO.Models.Classificacao;
@@ -10,17 +10,15 @@ namespace SCRO.Views
 {
     public static class PacienteView
     {
-        //Ideia inicial, criar um obj de paciente quando chamar a view e na view retornar o obj paciente
-        //para ser cadastrado pelo controller
-        //PacienteController pacienteController = new PacienteController();
-        static PacienteController paciente; 
+
+        static PacienteController paciente;
         static PacienteView()
         {
             paciente = new PacienteController();
         }
         public static void Cadastrar()
         {
-            
+
 
         }
 
@@ -35,7 +33,7 @@ namespace SCRO.Views
 
 
 
-        public static Paciente CadastrarPaciente()
+        public static void CadastrarPaciente()
         {
             Console.Clear();
             Cabecalho();
@@ -62,7 +60,7 @@ namespace SCRO.Views
             string rua = Console.ReadLine();
 
             Console.WriteLine("Informe o número do paciente: ");
-            int numero = Console.Read();
+            int numero = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Informe o bairro do paciente: ");
             string bairro = Console.ReadLine();
@@ -72,12 +70,12 @@ namespace SCRO.Views
 
             Console.WriteLine("Informe a UF do paciente: ");
             string uf = Console.ReadLine();
-            
+
             Console.WriteLine("Informe o CEP do paciente: ");
             int cep = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Informe o sexo do paciente: ");
-            char sexo = char.Parse(Console.ReadLine());
+            Console.WriteLine("Informe o sexo do paciente [M] ou [F]: ");
+            char sexo = Console.ReadLine()[0];
 
             Console.WriteLine("Informe a profissão do paciente: ");
             string profissao = Console.ReadLine();
@@ -97,19 +95,22 @@ namespace SCRO.Views
                 responsavelId = responsavel.IdResponsavel;
             }
 
-            Paciente paciente = new Paciente(responsavelId, nome, idade, cpf, rg, celular, telefone, rua, numero,  bairro, municipio, uf, cep, sexo, profissao, email);
-            return paciente; // tirar o retorno e chamar o metodo de cadastrar paciente do controler
+            paciente.CadastrarPaciente(new Paciente(responsavelId, nome, idade, cpf, rg, celular, telefone, rua, numero, bairro, municipio, uf, cep, sexo, profissao, email));
+            Console.WriteLine("Paciente cadastrado com sucesso!");
+            Console.WriteLine("Pressione qualquer tecla para retornar ao menu principal...");
+            Console.ReadKey();
+            MenuInicialView.MenuInicial();
         }
 
 
         public static void ExibirPaciente(IList<Paciente> paciente)
         {
             Console.Clear();
-            Cabecalho();
-            if ( paciente != null ) 
+            if (paciente != null)
             {
-                for (int i = 0; i < paciente.Count; i++)//var p in paciente)
+                for (int i = 0; i < paciente.Count; i++)
                 {
+                    Cabecalho();
                     Console.WriteLine("********************************");
                     Console.WriteLine($"Pagina: {i + 1} de {paciente.Count}");
                     Console.WriteLine("********************************");
@@ -128,9 +129,18 @@ namespace SCRO.Views
                     Console.WriteLine($"Sexo: {paciente[i].Sexo}");
                     Console.WriteLine($"Profissao: {paciente[i].Profissao}");
                     Console.WriteLine($"Email: {paciente[i].Email}");
+                    Console.WriteLine("Pressione [enter] para continuar ou [1] para retornar ao menu principal...");
+                    var escolha = Console.ReadLine();
+                    if (escolha == "1")
+                    {
+                        MenuInicialView.MenuInicial();
+                    }
                     Console.WriteLine("\n\n");
-                    Console.ReadKey();
                     Console.Clear();
+                }
+                if(paciente.Count > 1)
+                {
+                    MenuInicialView.MenuInicial();
                 }
             }
         }
@@ -147,14 +157,15 @@ namespace SCRO.Views
             Console.WriteLine("[3] - CPF");
             Console.WriteLine("[4] - Celular");
             Console.WriteLine("[5] - Email");
-            Console.WriteLine("[6] - Retornar à opção anterior");
+            Console.WriteLine("[6] - Buscar todos os pacientes");
+            Console.WriteLine("[7] - Retornar à opção anterior");
 
             string opcaoSelecionada = Console.ReadLine();
 
             if (string.IsNullOrEmpty(opcaoSelecionada))
             {
                 Console.WriteLine("Opção incorreta, tente novamente");
-                Console.ReadLine(); 
+                Console.ReadLine();
                 ConsultarPaciente();
             }
 
@@ -181,17 +192,25 @@ namespace SCRO.Views
                     break;
 
                 case '6':
+                    ConsultaTodosOsPacientes();
+                    break;
+                case '7':
                     MenuInicialView.MenuInicial();
                     break;
 
                 default:
                     Console.WriteLine("Opção incorreta, tente novamente");
-                    Console.ReadLine(); 
+                    Console.ReadLine();
                     ConsultarPaciente();
                     break;
             }
         }
 
+        private static void ConsultaTodosOsPacientes()
+        {
+            var todosOsPacientes = paciente.BuscarTodos();
+            ExibirPaciente(todosOsPacientes);
+        }
 
         private static void ConsultaPacienteEmail()
         {
@@ -290,7 +309,7 @@ namespace SCRO.Views
             Console.Clear();
             Cabecalho();
             Console.WriteLine("Informe o CPF do paciente: ");
-            var cpf = int.Parse(Console.ReadLine());
+            var cpf = long.Parse(Console.ReadLine());
             var pacienteEncontrado = paciente.BuscarPaciente(cpf: cpf);
 
             if (pacienteEncontrado.Count > 0)
@@ -384,7 +403,7 @@ namespace SCRO.Views
                             pacienteEncontrado[0].Email = Console.ReadLine();
                             break;
                         case "0":
-                            selecionarCampos = false; // Sai do loop
+                            selecionarCampos = false;
                             break;
                         default:
                             Console.WriteLine("Opção incorreta, tente novamente");
@@ -393,7 +412,8 @@ namespace SCRO.Views
                 }
 
                 paciente.AtualizarPaciente(pacienteEncontrado[0]);
-                Console.WriteLine("Paciente atualizado com sucesso!");
+                Console.WriteLine("Paciente atualizado com sucesso!" +
+                                  "Pressione qualquer tecla para continuar...");
                 Console.ReadKey();
                 MenuInicialView.MenuInicial();
             }
@@ -435,7 +455,7 @@ namespace SCRO.Views
                                 MenuInicialView.MenuInicial();
                                 break;
                             case "2":
-                                selecionarCampos = false; 
+                                selecionarCampos = false;
                                 Console.WriteLine("Retornando ao menu inicial");
                                 Console.WriteLine("Pressione enter para continuar...");
                                 Console.ReadKey();
@@ -444,11 +464,8 @@ namespace SCRO.Views
                             default:
                                 Console.WriteLine("Opção incorreta, tente novamente");
                                 break;
-
                         }
                     }
-
-
                 }
                 else
                 {
@@ -459,4 +476,3 @@ namespace SCRO.Views
         }
     }
 }
-﻿

@@ -20,11 +20,11 @@ namespace SCRO.Controllers
             return pacienteEncontrado;
         }
 
-        public void BuscarTodos()
+        public IList<Paciente> BuscarTodos()
         {
             using var repo = new PacienteDAO();
-            var todosOsPaciente = repo.ObterTodos();
-            PacienteView.ExibirPaciente(todosOsPaciente);
+            var todosOsPacientes = repo.ObterTodos();
+            return todosOsPacientes;
         }
 
         public void CadastrarPaciente(Paciente paciente)

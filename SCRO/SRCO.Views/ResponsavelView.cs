@@ -7,13 +7,9 @@ using System.Threading.Tasks;
 
 namespace SCRO.Views
 {
-    public class ResponsavelView
+    public static class ResponsavelView
     {
 
-        public Responsavel menuCadastrarResponsavel(Responsavel responsavel)
-        {
-
-            return responsavel;
-        }
+        
     }
 }

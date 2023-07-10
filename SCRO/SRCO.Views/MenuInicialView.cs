@@ -12,72 +12,72 @@ namespace SCRO.Views
 
         public static void Cabecalho()
         {
-            Console.WriteLine("**********************************************************************************************");
-            Console.WriteLine("**********************************************************************************************");
-            Console.WriteLine("************** SCRO - Sistema de classificação de risco de gestantes e puérperas *************");
-            Console.WriteLine("**********************************************************************************************");
-            Console.WriteLine("**********************************************************************************************");
+            Console.WriteLine("╔══════════════════════════════════════════════════════════════════════════════════╗");
+            Console.WriteLine("║                                                                                  ║");
+            Console.WriteLine("║          SCRO - Sistema de Classificação de Risco de Gestantes e Puérperas       ║");
+            Console.WriteLine("║                                                                                  ║");
+            Console.WriteLine("╚══════════════════════════════════════════════════════════════════════════════════╝");
+            Console.WriteLine();
         }
 
         public static void Opcoes()
         {
-            
+
 
         }
+
         public static void MenuInicial()
         {
             Console.Clear();
             Cabecalho();
-            Console.WriteLine("Seja bem vindo!");
-            Console.WriteLine("Selecione uma das opções a seguir ");
-            Console.WriteLine("[1] - Cadastrar paciente ");
-            Console.WriteLine("[2] - Consultar paciente ");
-            Console.WriteLine("[3] - Atualizar paciente ");
-            Console.WriteLine("[4] - Excluir paciente ");
+            Console.WriteLine("Seja bem-vindo!");
+            Console.WriteLine("Selecione uma das opções a seguir:");
+            Console.WriteLine("[1] - Cadastrar paciente");
+            Console.WriteLine("[2] - Consultar paciente");
+            Console.WriteLine("[3] - Atualizar paciente");
+            Console.WriteLine("[4] - Excluir paciente");
             Console.WriteLine("[5] - Sair do sistema");
-
 
             string opcaoSelecionada = Console.ReadLine();
 
-            if(string.IsNullOrEmpty(opcaoSelecionada))
+            if (string.IsNullOrEmpty(opcaoSelecionada))
             {
                 Console.WriteLine("Opção incorreta, tente novamente");
                 Console.ReadLine();
                 MenuInicial();
+                return;
             }
-                switch (opcaoSelecionada)
-                {
-                    case "1":
+
+            switch (opcaoSelecionada)
+            {
+                case "1":
                     PacienteView.CadastrarPaciente();
-                        break;
+                    break;
 
-                    case "2":
+                case "2":
                     PacienteView.ConsultarPaciente();
-                        break;
-                    
-                    case "3":
+                    break;
+
+                case "3":
                     PacienteView.AtualizarPaciente();
-                        break;
-                     
-                    case "4":
+                    break;
+
+                case "4":
                     PacienteView.ExcluirPaciente();
-                        break;
+                    break;
 
-                    case "5":
-                        Console.WriteLine("Saindo do sistema...");
-                        Environment.Exit(0);
-                        break;
+                case "5":
+                    Console.WriteLine("Saindo do sistema...");
+                    Environment.Exit(0);
+                    break;
 
-                    default:
-                        Console.WriteLine("Opção incorreta, tente novamente");
-                        Console.ReadLine();
-                        MenuInicial();
-                        break;
-                }
-
-
-            
-
+                default:
+                    Console.WriteLine("Opção incorreta, tente novamente");
+                    Console.ReadLine();
+                    MenuInicial();
+                    break;
+            }
         }
+
     }
 }

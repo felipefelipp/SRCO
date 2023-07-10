@@ -11,28 +11,11 @@ namespace SCRO.Views
     public static class PacienteView
     {
 
-        static PacienteController paciente;
+        private static PacienteController paciente;
         static PacienteView()
         {
             paciente = new PacienteController();
         }
-        public static void Cadastrar()
-        {
-
-
-        }
-
-        public static void Cabecalho()
-        {
-            Console.WriteLine("**********************************************************************************************");
-            Console.WriteLine("**********************************************************************************************");
-            Console.WriteLine("************** SCRO - Sistema de classificação de risco de gestantes e puérperas *************");
-            Console.WriteLine("**********************************************************************************************");
-            Console.WriteLine("**********************************************************************************************");
-        }
-
-
-
         public static void CadastrarPaciente()
         {
             Console.Clear();
@@ -42,25 +25,50 @@ namespace SCRO.Views
             string nome = Console.ReadLine();
 
             Console.WriteLine("Informe a idade do paciente: ");
-            int idade = int.Parse(Console.ReadLine());
+            int idade;
+            while (!int.TryParse(Console.ReadLine(), out idade) || idade <= 0)
+            {
+                Console.WriteLine("Idade inválida. Informe a idade do paciente: ");
+            }
 
             Console.WriteLine("Informe o CPF do paciente: ");
-            long cpf = long.Parse(Console.ReadLine());
+            long cpf;
+            while (!long.TryParse(Console.ReadLine(), out cpf) || cpf <= 0)
+            {
+                Console.WriteLine("CPF inválido. Informe o CPF do paciente: ");
+            }
 
             Console.WriteLine("Informe o RG do paciente: ");
-            int rg = int.Parse(Console.ReadLine());
+            int rg;
+            while (!int.TryParse(Console.ReadLine(), out rg) || rg <= 0)
+            {
+                Console.WriteLine("RG inválido. Informe o RG do paciente: ");
+            }
 
             Console.WriteLine("Informe o celular do paciente: ");
-            long celular = long.Parse(Console.ReadLine());
+            long celular;
+            while (!long.TryParse(Console.ReadLine(), out celular) || celular <= 0)
+            {
+                Console.WriteLine("Celular inválido. Informe o celular do paciente: ");
+            }
 
-            Console.WriteLine("Informe o telefone do paciente: ");
-            long? telefone = long.TryParse(Console.ReadLine(), out long parsedTelefone) ? parsedTelefone : (long?)null;
+            Console.WriteLine("Informe o telefone do paciente (opcional, deixe em branco se não possuir): ");
+            long? telefone = null;
+            long parsedTelefone;
+            if (long.TryParse(Console.ReadLine(), out parsedTelefone) && parsedTelefone > 0)
+            {
+                telefone = parsedTelefone;
+            }
 
             Console.WriteLine("Informe a rua do paciente: ");
             string rua = Console.ReadLine();
 
             Console.WriteLine("Informe o número do paciente: ");
-            int numero = int.Parse(Console.ReadLine());
+            int numero;
+            while (!int.TryParse(Console.ReadLine(), out numero) || numero <= 0)
+            {
+                Console.WriteLine("Número inválido. Informe o número do paciente: ");
+            }
 
             Console.WriteLine("Informe o bairro do paciente: ");
             string bairro = Console.ReadLine();
@@ -72,10 +80,18 @@ namespace SCRO.Views
             string uf = Console.ReadLine();
 
             Console.WriteLine("Informe o CEP do paciente: ");
-            int cep = int.Parse(Console.ReadLine());
+            int cep;
+            while (!int.TryParse(Console.ReadLine(), out cep) || cep <= 0)
+            {
+                Console.WriteLine("CEP inválido. Informe o CEP do paciente: ");
+            }
 
             Console.WriteLine("Informe o sexo do paciente [M] ou [F]: ");
-            char sexo = Console.ReadLine()[0];
+            char sexo;
+            while (!char.TryParse(Console.ReadLine(), out sexo) || (sexo != 'M' && sexo != 'F'))
+            {
+                Console.WriteLine("Sexo inválido. Informe o sexo do paciente [M] ou [F]: ");
+            }
 
             Console.WriteLine("Informe a profissão do paciente: ");
             string profissao = Console.ReadLine();
@@ -83,17 +99,21 @@ namespace SCRO.Views
             Console.WriteLine("Informe o email do paciente: ");
             string email = Console.ReadLine();
 
-            Console.WriteLine("Paciente possui responsável? [1] - Sim [2] - Não");
-            char possuiResponsavel = Console.ReadLine()[0];
+            Console.WriteLine("O paciente possui responsável? [1] - Sim [2] - Não");
+            char possuiResponsavel;
+            while (!char.TryParse(Console.ReadLine(), out possuiResponsavel) || (possuiResponsavel != '1' && possuiResponsavel != '2'))
+            {
+                Console.WriteLine("Opção inválida. O paciente possui responsável? [1] - Sim [2] - Não");
+            }
 
             int responsavelId = 0;
-            if (possuiResponsavel == '1')
-            {
-                Responsavel responsavel = new Responsavel();
-                ResponsavelView cadastroResponsavel = new ResponsavelView();
-                cadastroResponsavel.menuCadastrarResponsavel(responsavel);
-                responsavelId = responsavel.IdResponsavel;
-            }
+            //if (possuiResponsavel == '1')
+            //{
+            //    Responsavel responsavel = new Responsavel();
+            //    ResponsavelView cadastroResponsavel = new ResponsavelView();
+            //    cadastroResponsavel.menuCadastrarResponsavel(responsavel);
+            //    responsavelId = responsavel.IdResponsavel;
+            //}
 
             paciente.CadastrarPaciente(new Paciente(responsavelId, nome, idade, cpf, rg, celular, telefone, rua, numero, bairro, municipio, uf, cep, sexo, profissao, email));
             Console.WriteLine("Paciente cadastrado com sucesso!");
@@ -101,52 +121,103 @@ namespace SCRO.Views
             Console.ReadKey();
             MenuInicialView.MenuInicial();
         }
-
-
-        public static void ExibirPaciente(IList<Paciente> paciente)
+        public static void ExibirPaciente(IList<Paciente> pacientes)
         {
             Console.Clear();
-            if (paciente != null)
+            if (pacientes != null && pacientes.Count > 0)
             {
-                for (int i = 0; i < paciente.Count; i++)
+                if (pacientes.Count == 1)
                 {
                     Cabecalho();
+                    ExibirInformacoesPaciente(pacientes[0]);
+                    Console.WriteLine("Pressione qualquer tecla para retornar ao menu anterior...");
+                    Console.ReadKey();
+                    ConsultarPaciente();
+                    return;
+                }
+
+                int pacientesPorPagina = 1;
+                int totalPaginas = (int)Math.Ceiling((double)pacientes.Count / pacientesPorPagina);
+                int paginaAtual = 0;
+
+                while (true)
+                {
+                    Console.Clear();
+                    Cabecalho();
                     Console.WriteLine("********************************");
-                    Console.WriteLine($"Pagina: {i + 1} de {paciente.Count}");
+                    Console.WriteLine($"Pagina: {paginaAtual + 1} de {totalPaginas}");
                     Console.WriteLine("********************************");
 
-                    Console.WriteLine($"Nome: {paciente[i].Nome}");
-                    Console.WriteLine($"Idade: {paciente[i].Idade}");
-                    Console.WriteLine($"ResponsavelId: {paciente[i].ResponsavelId}");
-                    Console.WriteLine($"CPF: {paciente[i].CPF}");
-                    Console.WriteLine($"RG: {paciente[i].RG}");
-                    Console.WriteLine($"Celular: {paciente[i].Celular}");
-                    Console.WriteLine($"Telefone: {paciente[i].Telefone}");
-                    Console.WriteLine($"Bairro: {paciente[i].Bairro}");
-                    Console.WriteLine($"Municipio: {paciente[i].Municipio}");
-                    Console.WriteLine($"UF: {paciente[i].UF}");
-                    Console.WriteLine($"CEP: {paciente[i].CEP}");
-                    Console.WriteLine($"Sexo: {paciente[i].Sexo}");
-                    Console.WriteLine($"Profissao: {paciente[i].Profissao}");
-                    Console.WriteLine($"Email: {paciente[i].Email}");
-                    Console.WriteLine("Pressione [enter] para continuar ou [1] para retornar ao menu principal...");
-                    var escolha = Console.ReadLine();
+                    Paciente pacienteAtual = pacientes[paginaAtual];
+
+                    // Exibir informações do paciente atual
+                    ExibirInformacoesPaciente(pacienteAtual);
+
+                    Console.WriteLine("Pressione [1] para avançar para a próxima página, [2] para voltar para a página anterior ou [3] para sair.");
+
+                    string escolha = Console.ReadLine();
                     if (escolha == "1")
                     {
-                        MenuInicialView.MenuInicial();
+                        paginaAtual++;
+                        if (paginaAtual >= totalPaginas)
+                        {
+                            paginaAtual = 0;
+                        }
                     }
-                    Console.WriteLine("\n\n");
-                    Console.Clear();
-                }
-                if(paciente.Count > 1)
-                {
-                    MenuInicialView.MenuInicial();
+                    else if (escolha == "2")
+                    {
+                        paginaAtual--;
+                        if (paginaAtual < 0)
+                        {
+                            paginaAtual = totalPaginas - 1;
+                        }
+                    }
+                    else if (escolha == "3")
+                    {
+                        ConsultarPaciente();
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Opção inválida! Pressione qualquer tecla para continuar...");
+                        Console.ReadKey();
+                    }
                 }
             }
+            else
+            {
+                Console.WriteLine("Nenhum paciente encontrado!");
+                Console.WriteLine("Pressione qualquer tecla para retornar ao menu principal...");
+                Console.ReadKey();
+                MenuInicialView.MenuInicial();
+            }
         }
-
-
-
+        private static void ExibirInformacoesPaciente(Paciente pacienteAtual)
+        {
+            Console.WriteLine($"Nome: {pacienteAtual.Nome}");
+            Console.WriteLine($"Idade: {pacienteAtual.Idade}");
+            Console.WriteLine($"ResponsavelId: {pacienteAtual.ResponsavelId}");
+            Console.WriteLine($"CPF: {pacienteAtual.CPF}");
+            Console.WriteLine($"RG: {pacienteAtual.RG}");
+            Console.WriteLine($"Celular: {pacienteAtual.Celular}");
+            Console.WriteLine($"Telefone: {pacienteAtual.Telefone}");
+            Console.WriteLine($"Bairro: {pacienteAtual.Bairro}");
+            Console.WriteLine($"Municipio: {pacienteAtual.Municipio}");
+            Console.WriteLine($"UF: {pacienteAtual.UF}");
+            Console.WriteLine($"CEP: {pacienteAtual.CEP}");
+            Console.WriteLine($"Sexo: {pacienteAtual.Sexo}");
+            Console.WriteLine($"Profissao: {pacienteAtual.Profissao}");
+            Console.WriteLine($"Email: {pacienteAtual.Email}");
+        }
+        public static void Cabecalho()
+        {
+            Console.WriteLine("╔══════════════════════════════════════════════════════════════════════════════════╗");
+            Console.WriteLine("║                                                                                  ║");
+            Console.WriteLine("║              SCRO - Sistema de Classificação de Risco de Gestantes e Puérperas   ║");
+            Console.WriteLine("║                                                                                  ║");
+            Console.WriteLine("╚══════════════════════════════════════════════════════════════════════════════════╝");
+            Console.WriteLine();
+        }
         public static void ConsultarPaciente()
         {
             Console.Clear();
@@ -167,6 +238,7 @@ namespace SCRO.Views
                 Console.WriteLine("Opção incorreta, tente novamente");
                 Console.ReadLine();
                 ConsultarPaciente();
+                return;
             }
 
             switch (opcaoSelecionada[0])
@@ -205,13 +277,11 @@ namespace SCRO.Views
                     break;
             }
         }
-
         private static void ConsultaTodosOsPacientes()
         {
             var todosOsPacientes = paciente.BuscarTodos();
             ExibirPaciente(todosOsPacientes);
         }
-
         private static void ConsultaPacienteEmail()
         {
             Console.WriteLine("Informe o e-mail do paciente: ");
@@ -227,9 +297,11 @@ namespace SCRO.Views
                 Console.WriteLine("Paciente não encontrado!");
                 Console.ReadKey();
             }
+
+            Console.WriteLine("Pressione qualquer tecla para continuar...");
+            Console.ReadKey();
             ConsultarPaciente();
         }
-
         private static void ConsultaPacienteCelular()
         {
             Console.WriteLine("Informe o celular do paciente: ");
@@ -245,12 +317,13 @@ namespace SCRO.Views
                 Console.WriteLine("Paciente não encontrado!");
                 Console.ReadKey();
             }
+
+            Console.WriteLine("Pressione qualquer tecla para continuar...");
+            Console.ReadKey();
             ConsultarPaciente();
         }
-
         public static void ConsultaPacienteNome()
         {
-
             Console.WriteLine("Informe o nome do paciente: ");
             var nome = Console.ReadLine();
             var pacienteEncontrado = paciente.BuscarPaciente(nome: nome);
@@ -264,12 +337,13 @@ namespace SCRO.Views
                 Console.WriteLine("Paciente não encontrado!");
                 Console.ReadKey();
             }
+
+            Console.WriteLine("Pressione qualquer tecla para continuar...");
+            Console.ReadKey();
             ConsultarPaciente();
         }
-
         public static void ConsultaPacienteIdade()
         {
-
             Console.WriteLine("Informe a idade do paciente: ");
             var idade = int.Parse(Console.ReadLine());
             var pacienteEncontrado = paciente.BuscarPaciente(idade: idade);
@@ -283,13 +357,15 @@ namespace SCRO.Views
                 Console.WriteLine("Paciente não encontrado!");
                 Console.ReadKey();
             }
+
+            Console.WriteLine("Pressione qualquer tecla para continuar...");
+            Console.ReadKey();
             ConsultarPaciente();
         }
-
         private static void ConsultaPacienteCpf()
         {
             Console.WriteLine("Informe o CPF do paciente: ");
-            var cpf = int.Parse(Console.ReadLine());
+            var cpf = long.Parse(Console.ReadLine());
             var pacienteEncontrado = paciente.BuscarPaciente(cpf: cpf);
 
             if (pacienteEncontrado.Count > 0)
@@ -301,9 +377,11 @@ namespace SCRO.Views
                 Console.WriteLine("Paciente não encontrado!");
                 Console.ReadKey();
             }
+
+            Console.WriteLine("Pressione qualquer tecla para continuar...");
+            Console.ReadKey();
             ConsultarPaciente();
         }
-
         public static void AtualizarPaciente()
         {
             Console.Clear();
@@ -314,30 +392,29 @@ namespace SCRO.Views
 
             if (pacienteEncontrado.Count > 0)
             {
-                ExibirPaciente(pacienteEncontrado);
+                ExibirInformacoesPaciente(pacienteEncontrado[0]);
+
+                Console.WriteLine("\nSelecione os campos a seguir para atualizar:");
+                Console.WriteLine("[1] - Nome");
+                Console.WriteLine("[2] - Idade");
+                Console.WriteLine("[3] - RG");
+                Console.WriteLine("[4] - Celular");
+                Console.WriteLine("[5] - Telefone");
+                Console.WriteLine("[6] - Rua");
+                Console.WriteLine("[7] - Numero");
+                Console.WriteLine("[8] - Bairro");
+                Console.WriteLine("[9] - Municipio");
+                Console.WriteLine("[10] - UF");
+                Console.WriteLine("[11] - CEP");
+                Console.WriteLine("[12] - Sexo");
+                Console.WriteLine("[13] - Profissão");
+                Console.WriteLine("[14] - E-mail");
+                Console.WriteLine("[0] - Finalizar e salvar alterações");
 
                 bool selecionarCampos = true;
 
                 while (selecionarCampos)
                 {
-                    Console.WriteLine("\nSelecione os campos a seguir para atualizar:");
-                    Console.WriteLine("[1] - Nome");
-                    Console.WriteLine("[2] - Idade");
-                    Console.WriteLine("[3] - CPF");
-                    Console.WriteLine("[4] - RG");
-                    Console.WriteLine("[5] - Celular");
-                    Console.WriteLine("[6] - Telefone");
-                    Console.WriteLine("[7] - Rua");
-                    Console.WriteLine("[8] - Numero");
-                    Console.WriteLine("[9] - Bairro");
-                    Console.WriteLine("[10] - Municipio");
-                    Console.WriteLine("[11] - UF");
-                    Console.WriteLine("[12] - CEP");
-                    Console.WriteLine("[13] - Sexo");
-                    Console.WriteLine("[14] - Profissão");
-                    Console.WriteLine("[15] - E-mail");
-                    Console.WriteLine("[0] - Finalizar e salvar alterações");
-
                     string opcaoSelecionada = Console.ReadLine();
 
                     switch (opcaoSelecionada)
@@ -348,57 +425,89 @@ namespace SCRO.Views
                             break;
                         case "2":
                             Console.WriteLine("Informe a nova idade: ");
-                            pacienteEncontrado[0].Idade = int.Parse(Console.ReadLine());
+                            int novaIdade;
+                            while (!int.TryParse(Console.ReadLine(), out novaIdade) || novaIdade <= 0)
+                            {
+                                Console.WriteLine("Idade inválida. Informe a nova idade: ");
+                            }
+                            pacienteEncontrado[0].Idade = novaIdade;
                             break;
                         case "3":
-                            Console.WriteLine("Informe o novo CPF: ");
-                            pacienteEncontrado[0].CPF = long.Parse(Console.ReadLine());
+                            Console.WriteLine("Informe o novo RG: ");
+                            int novoRG;
+                            while (!int.TryParse(Console.ReadLine(), out novoRG) || novoRG <= 0)
+                            {
+                                Console.WriteLine("RG inválido. Informe o novo RG: ");
+                            }
+                            pacienteEncontrado[0].RG = novoRG;
                             break;
                         case "4":
-                            Console.WriteLine("Informe o novo RG: ");
-                            pacienteEncontrado[0].RG = int.Parse(Console.ReadLine());
+                            Console.WriteLine("Informe o novo celular: ");
+                            long novoCelular;
+                            while (!long.TryParse(Console.ReadLine(), out novoCelular) || novoCelular <= 0)
+                            {
+                                Console.WriteLine("Celular inválido. Informe o novo celular: ");
+                            }
+                            pacienteEncontrado[0].Celular = novoCelular;
                             break;
                         case "5":
-                            Console.WriteLine("Informe o novo celular: ");
-                            pacienteEncontrado[0].Celular = long.Parse(Console.ReadLine());
+                            Console.WriteLine("Informe o novo telefone: ");
+                            long? novoTelefone = null;
+                            long parsedTelefone;
+                            if (long.TryParse(Console.ReadLine(), out parsedTelefone) && parsedTelefone > 0)
+                            {
+                                novoTelefone = parsedTelefone;
+                            }
+                            pacienteEncontrado[0].Telefone = novoTelefone;
                             break;
                         case "6":
-                            Console.WriteLine("Informe o novo telefone: ");
-                            pacienteEncontrado[0].Telefone = long.Parse(Console.ReadLine());
-                            break;
-                        case "7":
                             Console.WriteLine("Informe a nova rua: ");
                             pacienteEncontrado[0].Rua = Console.ReadLine();
                             break;
-                        case "8":
+                        case "7":
                             Console.WriteLine("Informe o novo número: ");
-                            pacienteEncontrado[0].Numero = int.Parse(Console.ReadLine());
+                            int novoNumero;
+                            while (!int.TryParse(Console.ReadLine(), out novoNumero) || novoNumero <= 0)
+                            {
+                                Console.WriteLine("Número inválido. Informe o novo número: ");
+                            }
+                            pacienteEncontrado[0].Numero = novoNumero;
                             break;
-                        case "9":
+                        case "8":
                             Console.WriteLine("Informe o novo bairro: ");
                             pacienteEncontrado[0].Bairro = Console.ReadLine();
                             break;
-                        case "10":
+                        case "9":
                             Console.WriteLine("Informe o novo município: ");
                             pacienteEncontrado[0].Municipio = Console.ReadLine();
                             break;
-                        case "11":
+                        case "10":
                             Console.WriteLine("Informe a nova UF: ");
                             pacienteEncontrado[0].UF = Console.ReadLine();
                             break;
-                        case "12":
+                        case "11":
                             Console.WriteLine("Informe o novo CEP: ");
-                            pacienteEncontrado[0].CEP = int.Parse(Console.ReadLine());
+                            int novoCEP;
+                            while (!int.TryParse(Console.ReadLine(), out novoCEP) || novoCEP <= 0)
+                            {
+                                Console.WriteLine("CEP inválido. Informe o novo CEP: ");
+                            }
+                            pacienteEncontrado[0].CEP = novoCEP;
+                            break;
+                        case "12":
+                            Console.WriteLine("Informe o novo sexo [M] ou [F]: ");
+                            char novoSexo;
+                            while (!char.TryParse(Console.ReadLine(), out novoSexo) || (novoSexo != 'M' && novoSexo != 'F'))
+                            {
+                                Console.WriteLine("Sexo inválido. Informe o novo sexo [M] ou [F]: ");
+                            }
+                            pacienteEncontrado[0].Sexo = novoSexo;
                             break;
                         case "13":
-                            Console.WriteLine("Informe o novo sexo: ");
-                            pacienteEncontrado[0].Sexo = Console.ReadLine()[0];
-                            break;
-                        case "14":
                             Console.WriteLine("Informe a nova profissão: ");
                             pacienteEncontrado[0].Profissao = Console.ReadLine();
                             break;
-                        case "15":
+                        case "14":
                             Console.WriteLine("Informe o novo e-mail: ");
                             pacienteEncontrado[0].Email = Console.ReadLine();
                             break;
@@ -409,70 +518,61 @@ namespace SCRO.Views
                             Console.WriteLine("Opção incorreta, tente novamente");
                             break;
                     }
+
+                    if (selecionarCampos)
+                    {
+                        Console.WriteLine("\nSelecione o próximo campo para atualizar ou digite 0 para finalizar e salvar as alterações.");
+                    }
+
                 }
 
                 paciente.AtualizarPaciente(pacienteEncontrado[0]);
-                Console.WriteLine("Paciente atualizado com sucesso!" +
-                                  "Pressione qualquer tecla para continuar...");
-                Console.ReadKey();
-                MenuInicialView.MenuInicial();
+                Console.WriteLine("Paciente atualizado com sucesso!");
             }
             else
             {
                 Console.Clear();
                 Cabecalho();
                 Console.WriteLine("Paciente não encontrado!");
-                Console.ReadKey();
-                MenuInicialView.MenuInicial();
             }
-        }
 
+            Console.WriteLine("Pressione qualquer tecla para continuar...");
+            Console.ReadKey();
+            MenuInicialView.MenuInicial();
+        }
         public static void ExcluirPaciente()
         {
             Console.WriteLine("Informe o CPF do paciente: ");
             var cpf = long.Parse(Console.ReadLine());
             var pacienteEncontrado = paciente.BuscarPaciente(cpf: cpf);
-            bool selecionarCampos = true;
 
-            while (selecionarCampos)
+            if (pacienteEncontrado.Count > 0)
             {
-                if (pacienteEncontrado.Count > 0)
-                {
-                    ExibirPaciente(pacienteEncontrado);
+                Console.Clear();
+                Cabecalho();
+                ExibirInformacoesPaciente(pacienteEncontrado[0]);
 
-                    Console.WriteLine("Você deseja excluir este paciente? Digite [1] para confirmar ou [2] para retornar ao menu inicial");
-                    var opcao = Console.ReadLine();
-                    if (!string.IsNullOrEmpty(opcao))
-                    {
-                        switch (opcao)
-                        {
-                            case "1":
-                                paciente.ExcluirPaciente(pacienteEncontrado[0]);
-                                Console.WriteLine("Paciente excluído com sucesso");
-                                Console.WriteLine("Retornando ao menu inicial");
-                                Console.WriteLine("Pressione enter para continuar...");
-                                Console.ReadKey();
-                                MenuInicialView.MenuInicial();
-                                break;
-                            case "2":
-                                selecionarCampos = false;
-                                Console.WriteLine("Retornando ao menu inicial");
-                                Console.WriteLine("Pressione enter para continuar...");
-                                Console.ReadKey();
-                                MenuInicialView.MenuInicial();
-                                break;
-                            default:
-                                Console.WriteLine("Opção incorreta, tente novamente");
-                                break;
-                        }
-                    }
+                Console.WriteLine("Você deseja excluir este paciente? Digite [1] para confirmar ou [2] para cancelar");
+                var opcao = Console.ReadLine();
+
+                if (!string.IsNullOrEmpty(opcao) && opcao == "1")
+                {
+                    paciente.ExcluirPaciente(pacienteEncontrado[0]);
+                    Console.WriteLine("Paciente excluído com sucesso!");
                 }
                 else
                 {
-                    Console.WriteLine("Paciente não encontrado!");
-                    Console.ReadKey();
+                    Console.WriteLine("Exclusão cancelada. O paciente não foi removido.");
                 }
             }
+            else
+            {
+                Console.WriteLine("Paciente não encontrado!");
+            }
+
+            Console.WriteLine("Pressione qualquer tecla para continuar...");
+            Console.ReadKey();
+            MenuInicialView.MenuInicial();
         }
     }
 }

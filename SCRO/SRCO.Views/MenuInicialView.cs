@@ -36,7 +36,11 @@ namespace SCRO.Views
             Console.WriteLine("[2] - Consultar paciente");
             Console.WriteLine("[3] - Atualizar paciente");
             Console.WriteLine("[4] - Excluir paciente");
-            Console.WriteLine("[5] - Sair do sistema");
+            Console.WriteLine("[5] - Cadastrar responsável");
+            Console.WriteLine("[6] - Consultar responsável");
+            Console.WriteLine("[7] - Atualizar responsavel");
+            Console.WriteLine("[8] - Excluir responsável");
+            Console.WriteLine("[0] - Sair do sistema");
 
             string opcaoSelecionada = Console.ReadLine();
 
@@ -65,8 +69,19 @@ namespace SCRO.Views
                 case "4":
                     PacienteView.ExcluirPaciente();
                     break;
-
                 case "5":
+                    ResponsavelView.CadastrarResponsavel();
+                    break;
+                case "6":
+                    ResponsavelView.ConsultarResponsavel();
+                    break;
+                case "7":
+                    ResponsavelView.AtualizarResponsavel();
+                    break;
+                case "8":
+                    ResponsavelView.ExcluirResponsavel();
+                    break;
+                case "0":
                     Console.WriteLine("Saindo do sistema...");
                     Environment.Exit(0);
                     break;

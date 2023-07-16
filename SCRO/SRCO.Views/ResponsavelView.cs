@@ -435,6 +435,39 @@ namespace SCRO.Views
             Console.ReadKey();
             ConsultarResponsavel();
         }
+        public static void ExcluirResponsavel()
+        {
+            Console.WriteLine("Informe o CPF do paciente: ");
+            var cpf = long.Parse(Console.ReadLine());
+            var responsavelEncontrado = Responsavel.BuscarResponsavel(cpf: cpf);
 
+            if (responsavelEncontrado.Count > 0)
+            {
+                Console.Clear();
+                Cabecalho();
+                ExibirInformacoesResponsavel(responsavelEncontrado[0]);
+
+                Console.WriteLine("Você deseja excluir este paciente? Digite [1] para confirmar ou [2] para cancelar");
+                var opcao = Console.ReadLine();
+
+                if (!string.IsNullOrEmpty(opcao) && opcao == "1")
+                {
+                    Responsavel.ExcluirResponsavel(responsavelEncontrado[0]);
+                    Console.WriteLine("Paciente excluído com sucesso!");
+                }
+                else
+                {
+                    Console.WriteLine("Exclusão cancelada. O paciente não foi removido.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Paciente não encontrado!");
+            }
+
+            Console.WriteLine("Pressione qualquer tecla para continuar...");
+            Console.ReadKey();
+            MenuInicialView.MenuInicial();
+        }
     }
 }

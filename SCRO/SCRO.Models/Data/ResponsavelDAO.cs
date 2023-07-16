@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Models.SCRO.Models.Paciente;
 using SCRO.Models.Paciente;
 using System;
 using System.Collections.Generic;
@@ -12,19 +11,19 @@ namespace SCRO.SCRO.Models.Data
 {
     public class ResponsavelDAO : IPessoaDAO<Responsavel>, IDisposable
     {
-        private SCROContext context;
+        private SCROContext Context;
 
         public ResponsavelDAO()
         {
-            this.context = new SCROContext();
+            this.Context = new SCROContext();
         }
 
         public void Adicionar(Responsavel pessoa)
         {
             try
             {
-                context.Responsavel.Add(pessoa);
-                context.SaveChanges();
+                Context.Responsavel.Add(pessoa);
+                Context.SaveChanges();
             }
             catch (DbUpdateException ex)
             {
@@ -35,15 +34,15 @@ namespace SCRO.SCRO.Models.Data
 
         public void Atualizar(Responsavel pessoa)
         {
-            context.Update(pessoa);
-            context.SaveChanges();
+            Context.Update(pessoa);
+            Context.SaveChanges();
         }
 
         public IList<Responsavel> BuscarPorCelular(long celular)
         {
             try
             {
-                return context.Responsavel
+                return Context.Responsavel
                                .Where(r => r.Celular == celular)
                                .ToList();
 
@@ -60,7 +59,7 @@ namespace SCRO.SCRO.Models.Data
         {
             try
             {
-                return context.Responsavel
+                return Context.Responsavel
                                .Where(r => r.CPF == cpf)
                                .ToList();
             }
@@ -76,7 +75,7 @@ namespace SCRO.SCRO.Models.Data
         {
             try
             {
-                return context.Responsavel
+                return Context.Responsavel
                                .Where(r => r.Email.Contains(email))
                                .ToList();
 
@@ -93,7 +92,7 @@ namespace SCRO.SCRO.Models.Data
         {
             try
             {
-                return context.Responsavel
+                return Context.Responsavel
                                .Where(r => r.Idade == idade)
                                .ToList();
             }
@@ -109,7 +108,7 @@ namespace SCRO.SCRO.Models.Data
         {
             try
             {
-                return context.Responsavel
+                return Context.Responsavel
                                .Where(r => r.Nome.Contains(nome))
                                .ToList();
             }
@@ -121,14 +120,18 @@ namespace SCRO.SCRO.Models.Data
             }
         }
 
+        public bool VerificaSeExisteCPF(long cpf)
+        {
+            return Context.Responsavel.Any(responsavel => responsavel.CPF == cpf); 
+        }
         public void Dispose()
         {
-            context.Dispose();
+            Context.Dispose();
         }
 
         public IList<Responsavel> Obter(string nome, int idade, long cpf, long celular, string email)
         {
-            return context.Responsavel.Where(responsavel => (responsavel.Nome == nome) ||
+            return Context.Responsavel.Where(responsavel => (responsavel.Nome == nome) ||
                                                              (responsavel.Idade == idade) ||
                                                              (responsavel.CPF == cpf) ||
                                                              (responsavel.Celular == celular) ||
@@ -138,13 +141,13 @@ namespace SCRO.SCRO.Models.Data
 
         public IList<Responsavel> ObterTodos()
         {
-            return context.Responsavel.ToList();
+            return Context.Responsavel.ToList();
         }
 
         public void Remover(Responsavel pessoa)
         {
-            context.Responsavel.Remove(pessoa);
-            context.SaveChanges();
+            Context.Responsavel.Remove(pessoa);
+            Context.SaveChanges();
         }
     }
 }

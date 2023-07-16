@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Models.Classificacao;
-using Models.SCRO.Models.Paciente;
+using SCRO.Models.Paciente;
 using SCRO.Models.Classificacao;
 using SCRO.Models.Paciente;
 using System;

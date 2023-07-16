@@ -1,6 +1,5 @@
-using Models.SCRO.Models.Paciente;
-using SCRO.Controllers;
 using SCRO.Models.Paciente;
+using SCRO.Controllers;
 using SCRO.SCRO.Models.Data;
 using SCRO.Views;
 

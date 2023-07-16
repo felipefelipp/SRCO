@@ -1,5 +1,4 @@
-﻿using Models.SCRO.Models.Paciente;
-using SCRO.Models.Paciente;
+﻿using SCRO.Models.Paciente;
 using System;
 using System.Collections.Generic;
 using System.Linq;

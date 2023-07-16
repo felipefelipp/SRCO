@@ -12,7 +12,6 @@ namespace SCRO.Controllers
     public class PacienteController
     {
 
-
         public IList<Paciente> BuscarPaciente(string nome = "null", int idade = -1, long cpf = -1, long celular = -1, string email = "null")
         {
             using var repo = new PacienteDAO();
@@ -42,6 +41,12 @@ namespace SCRO.Controllers
         {
             using var repo = new PacienteDAO();
             repo.Remover(paciente);
+        }
+
+        public bool VerificaSeExisteCpf(long cpf) 
+        {
+            using var repo = new PacienteDAO();
+            return repo.VerificaSeExisteCPF(cpf);
         }
 
         public PacienteController ()

@@ -1,4 +1,3 @@
-using Models.SCRO.Models.Paciente;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -61,7 +60,7 @@ namespace SCRO.Models.Paciente
             Celular = celular;
             Telefone = telefone;
             Rua = rua;
-            Numero = Numero;
+            Numero = numero;
             Bairro = bairro;
             Municipio = municipio;
             UF = uf;

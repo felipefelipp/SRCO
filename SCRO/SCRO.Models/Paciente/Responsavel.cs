@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.SCRO.Models.Paciente
+namespace SCRO.Models.Paciente
 {
     [Table("Responsavel")]
     public class Responsavel : IPessoa
@@ -21,7 +21,7 @@ namespace Models.SCRO.Models.Paciente
         public long Celular { get;  set; }
         public string Email { get;  set; }
 
-        public Responsavel(string nome, int idade, int cpf, int rg, long celular, string email)
+        public Responsavel(string nome, int idade, long cpf, int rg, long celular, string email)
         {
             Nome = nome;
             Idade = idade;

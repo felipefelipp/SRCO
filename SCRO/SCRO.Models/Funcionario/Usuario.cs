@@ -1,29 +1,28 @@
 using SCRO.Models.Paciente;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SCRO.Models.Funcionario
 {
-    public class Usuario //: IPessoa
+    public class Usuario : Pessoa
     {
-
-        private string? _COREN;
-
-        private string? _CRM;
-
+        public int UsuarioId { get; set; }
+        public string COREN { get; set; }
+        public string CRM { get; set; }     
+        public string Senha { get; private set; }
         public Usuario(string nome,
                        int idade,
-                       int cPF,
-                       int rG,
-                       int celular,
-                       string? coren,
-                       string? crm) //: base(nome, idade, cPF, rG, celular)
+                       string CPF,
+                       string RG,
+                       string celular,
+                       string email,
+                       string senha,
+                       string coren,
+                       string crm) : base(nome, idade, CPF, RG, celular, email)
         {
-            _COREN = coren;
-            _CRM = crm;
+            COREN = coren;
+            CRM = crm;
+            Senha = senha;
         }
+
+        public Usuario() { }
     }
 }

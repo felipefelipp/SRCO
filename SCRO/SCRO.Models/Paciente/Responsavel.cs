@@ -1,36 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SCRO.Models.Paciente
+﻿namespace SCRO.Models.Paciente
 {
-    [Table("Responsavel")]
-    public class Responsavel : IPessoa
+    public class Responsavel : Pessoa
     {
-
-        [Key]
-        public int IdResponsavel { get;  set; }
-        public string Nome { get;  set; }
-        public int Idade { get;  set; }
-        public long CPF { get;  set; }
-        public int RG { get;  set; }
-        public long Celular { get;  set; }
-        public string Email { get;  set; }
-
-        public Responsavel(string nome, int idade, long cpf, int rg, long celular, string email)
+        public int? ResponsavelId { get;  set; }
+        public int? PacienteId { get; set; }
+        public Paciente Paciente { get; set; }
+        public Responsavel(string nome, int idade, string cpf, string rg, string celular, string email) : base(nome, idade, cpf, rg, celular, email)
         {
-            Nome = nome;
-            Idade = idade;
-            CPF = cpf;
-            RG = rg;
-            Celular = celular;
-            Email = email;
         }
-
         public Responsavel() { }
     }
 }

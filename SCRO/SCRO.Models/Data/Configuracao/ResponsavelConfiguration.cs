@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SCRO.Models.Paciente;
+using SCRO.Models.Cliente;
 
 namespace SCRO.SCRO.Models.Data
 {

@@ -1,4 +1,4 @@
-using SCRO.Models.Paciente;
+using SCRO.Models.Cliente;
 
 namespace SCRO.Models.Funcionario
 {

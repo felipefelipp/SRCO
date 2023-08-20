@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using SCRO.Models.Paciente;
+using SCRO.Models.Cliente;
 using SCRO.Models.Funcionario;
+using SCRO.Models.Classificacao;
 
 namespace SCRO.SCRO.Models.Data.Contexto
 {
@@ -10,8 +11,8 @@ namespace SCRO.SCRO.Models.Data.Contexto
         public DbSet<Paciente> Pacientes { get; set; }
         public DbSet<Responsavel> Responsaveis { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
-       // public DbSet<Pergunta> Perguntas { get; set; }
-        //public DbSet<Respostas> Resposta { get; set; }
+        public DbSet<Pergunta> Perguntas { get; set; }
+        public DbSet<Resposta> Respostas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

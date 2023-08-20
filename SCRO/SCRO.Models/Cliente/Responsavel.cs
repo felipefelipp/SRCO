@@ -1,4 +1,4 @@
-﻿namespace SCRO.Models.Paciente
+﻿namespace SCRO.Models.Cliente
 {
     public class Responsavel : Pessoa
     {

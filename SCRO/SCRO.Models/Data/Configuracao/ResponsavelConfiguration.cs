@@ -19,8 +19,7 @@ namespace SCRO.SCRO.Models.Data
 
             builder
                 .HasKey(r => r.ResponsavelId);  
-
-                
+    
         }
     }
 }

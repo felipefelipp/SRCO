@@ -1,9 +1,12 @@
+using SCRO.Models.Classificacao;
+
 namespace SCRO.Models.Cliente
 {
     public class Paciente : Pessoa
     {
         public int PacienteId { get; set; }
         public Responsavel? Responsavel { get; set; }
+        public PerguntaSelecionadaPaciente PerguntaSelecionadaPaciente { get; set; }
         public string Telefone { get; private set; }
         public string Rua { get; private set; }
         public int Numero { get; private set; }

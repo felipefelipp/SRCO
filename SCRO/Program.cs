@@ -1,11 +1,13 @@
+using SCRO.Models.Classificacao;
 using SCRO.SCRO.Models.Enums;
 
 class Program
 {
     static void Main(string[] args)
     {
-        var a = TipoResposta.Radiobutton;
-        //Console.WriteLine(a.Key());
+        var a = new Resposta();
+        a.TipoResposta = TipoResposta.Text;
+        Console.Write(a.TipoResposta);
     }
 }
 // PacienteController paciente = new PacienteController();

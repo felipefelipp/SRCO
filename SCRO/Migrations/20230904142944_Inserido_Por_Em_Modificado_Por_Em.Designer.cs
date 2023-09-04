@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SCRO.SCRO.Models.Data.Contexto;
 
@@ -11,9 +12,11 @@ using SCRO.SCRO.Models.Data.Contexto;
 namespace SCRO.Migrations
 {
     [DbContext(typeof(SCROContext))]
-    partial class SCROContextModelSnapshot : ModelSnapshot
+    [Migration("20230904142944_Inserido_Por_Em_Modificado_Por_Em")]
+    partial class Inserido_Por_Em_Modificado_Por_Em
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -281,34 +284,12 @@ namespace SCRO.Migrations
                 {
                     b.Property<int>("RespostaSelecionadaPacienteId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("RespostaSelecionadaPacienteId");
+                        .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RespostaSelecionadaPacienteId"));
 
                     b.Property<int>("ClassificacaoPacienteId")
-                        .HasColumnType("int")
-                        .HasColumnName("ClassificacaoPacienteId");
-
-                    b.Property<DateTime>("InseridoEm")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("getdate()");
-
-                    b.Property<int>("InseridoPor")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValueSql("1");
-
-                    b.Property<DateTime>("ModificadoEm")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("getdate()");
-
-                    b.Property<int>("ModificadoPor")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValueSql("1");
+                        .HasColumnType("int");
 
                     b.Property<int>("PacienteId")
                         .HasColumnType("int");
@@ -317,19 +298,19 @@ namespace SCRO.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ValorRespostaTexto")
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("ValorRespostaTexto");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ValorRespostaTextoArea")
-                        .HasColumnType("varchar(max)")
-                        .HasColumnName("ValorRespostaTextoArea");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RespostaSelecionadaPacienteId");
 
                     b.HasIndex("PacienteId")
                         .IsUnique();
 
-                    b.ToTable("RespostaSelecionadaPaciente", (string)null);
+                    b.ToTable("RespostaSelecionadaPaciente");
                 });
 
             modelBuilder.Entity("SCRO.Models.Cliente.Paciente", b =>

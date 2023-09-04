@@ -16,7 +16,8 @@ namespace SCRO.SCRO.Models.Data.Contexto
         public DbSet<CategoriaPergunta> CategoriaPerguntas { get; set; }
         public DbSet<PerguntaSelecionadaPaciente> PerguntaSelecionadaPacientes { get; set; }
         public DbSet<Resposta> Respostas { get; set; }
-        //public DbSet<ClassificacaoPaciente> Classificacoes { get; set; }
+        public DbSet<RespostaSelecionadaPaciente> RespostaSelecionadaPaciente { get; set; }
+        public DbSet<ClassificacaoPaciente> Classificacoes { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -32,7 +33,8 @@ namespace SCRO.SCRO.Models.Data.Contexto
             modelBuilder.ApplyConfiguration(new CategoriaPerguntaConfiguration());
             modelBuilder.ApplyConfiguration(new RespostaConfiguration());
             modelBuilder.ApplyConfiguration(new PerguntaSelecionadaPacienteConfiguration());    
-            //modelBuilder.ApplyConfiguration(new ClassificacaoPacienteConfiguration());
+            modelBuilder.ApplyConfiguration(new ClassificacaoPacienteConfiguration());
+            modelBuilder.ApplyConfiguration(new RespostaSelecionadaPacienteConfiguration());
         }
 
     }

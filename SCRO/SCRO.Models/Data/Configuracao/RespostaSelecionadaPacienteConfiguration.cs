@@ -23,7 +23,7 @@ namespace SCRO.SCRO.Models.Data.Configuracao
 
             builder
                 .Property(rspc => rspc.ValorRespostaTextoArea)
-                .HasColumnName("ValorRespostaTexto")
+                .HasColumnName("ValorRespostaTextoArea")
                 .HasColumnType("varchar(max)")
                 .IsRequired(false);
 
@@ -35,6 +35,26 @@ namespace SCRO.SCRO.Models.Data.Configuracao
             builder
                  .Property(rspc => rspc.ClassificacaoPacienteId)
                  .HasColumnName("ClassificacaoPacienteId");
+
+            builder
+               .Property<DateTime>("InseridoEm")
+               .HasColumnType("datetime")
+               .HasDefaultValueSql("getdate()");
+
+            builder
+                .Property<int>("InseridoPor")
+                .HasColumnType("int")
+                .HasDefaultValueSql("1"); //Implementar inserido por usuário X ou Y
+
+            builder
+                .Property<DateTime>("ModificadoEm")
+                .HasColumnType("datetime")
+                .HasDefaultValueSql("getdate()"); //Implementar modificado em 
+
+            builder
+                .Property<int>("ModificadoPor")
+                .HasColumnType("int")
+                .HasDefaultValueSql("1"); //Implementar usuário que modificou 
         }
 
     }

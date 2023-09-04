@@ -18,12 +18,12 @@ namespace SCRO.SCRO.Models.Data.Configuracao
             builder
                 .Property(r => r.RespostaTexto)
                 .HasColumnName("RespostaTexto")
-                .HasColumnType("varchar(100)");
+                .HasColumnType("bit");
 
             builder
                 .Property(r => r.RespostaTextoArea)
                 .HasColumnName("RespostaTextoArea")
-                .HasColumnType("varchar(max)");
+                .HasColumnType("bit");
 
             builder
                 .Property(r => r.RespostaCheckBox)

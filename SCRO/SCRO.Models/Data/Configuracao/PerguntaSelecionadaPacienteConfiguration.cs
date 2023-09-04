@@ -22,8 +22,11 @@ namespace SCRO.SCRO.Models.Data.Configuracao
             builder
                 .HasOne(pspc => pspc.Paciente)
                 .WithOne(p => p.PerguntaSelecionadaPaciente)
-                .HasForeignKey<PerguntaSelecionadaPaciente>("PacienteId");
-                
+                .HasForeignKey<PerguntaSelecionadaPaciente>(pspc => pspc.PacienteId);
+
+            builder
+                .Property(pspc => pspc.ClassificacaoPacienteId)
+                .HasColumnName("ClassificacaoPacienteId");
         }
     }
 }

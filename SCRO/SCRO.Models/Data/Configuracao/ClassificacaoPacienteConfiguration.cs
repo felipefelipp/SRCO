@@ -12,9 +12,22 @@ namespace SCRO.SCRO.Models.Data.Configuracao
                 .ToTable("ClassificacaoPaciente");
 
             builder
-                .Property(c => c.ClassificacaoPacienteId)
+                .Property(cpc => cpc.ClassificacaoPacienteId)
                 .HasColumnName("ClassificacaoPacienteId");
-            
+
+            builder
+                .HasOne(cpc => cpc.Paciente)
+                .WithOne(p => p.ClassificacaoPaciente)
+                .HasForeignKey<ClassificacaoPaciente>(cp => cp.PacienteId);
+
+            builder
+                .Property(cpc => cpc.ValorResultadoClassificacao)
+                .HasColumnName("ValorResultadoClassificacao");
+
+            builder
+                .Property(cpc => cpc.ResultadoCor)
+                .HasColumnName("ValorResultadoCor");
+
         }
     }
 }

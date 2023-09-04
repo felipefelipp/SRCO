@@ -8,5 +8,7 @@ namespace SCRO.Models.Classificacao
         public int PerguntaId { get; set; }
         public Paciente Paciente { get; set; }
         public int PacienteId { get; set; }
+        public int ClassificacaoPacienteId { get; set; }
+
     }
 }

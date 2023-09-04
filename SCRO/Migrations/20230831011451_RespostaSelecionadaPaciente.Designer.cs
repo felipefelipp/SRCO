@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SCRO.SCRO.Models.Data.Contexto;
 
@@ -11,9 +12,11 @@ using SCRO.SCRO.Models.Data.Contexto;
 namespace SCRO.Migrations
 {
     [DbContext(typeof(SCROContext))]
-    partial class SCROContextModelSnapshot : ModelSnapshot
+    [Migration("20230831011451_RespostaSelecionadaPaciente")]
+    partial class RespostaSelecionadaPaciente
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,34 +50,6 @@ namespace SCRO.Migrations
                     b.ToTable("CategoriaPergunta", (string)null);
                 });
 
-            modelBuilder.Entity("SCRO.Models.Classificacao.ClassificacaoPaciente", b =>
-                {
-                    b.Property<int>("ClassificacaoPacienteId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClassificacaoPacienteId"));
-
-                    b.Property<int>("PacienteId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ResultadoClassificacaoCor")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ResultadoCor")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ValorResultadoClassificacao")
-                        .HasColumnType("int");
-
-                    b.HasKey("ClassificacaoPacienteId");
-
-                    b.HasIndex("PacienteId")
-                        .IsUnique();
-
-                    b.ToTable("ClassificacaoPaciente");
-                });
-
             modelBuilder.Entity("SCRO.Models.Classificacao.Pergunta", b =>
                 {
                     b.Property<int>("PerguntaId")
@@ -102,10 +77,6 @@ namespace SCRO.Migrations
                         .HasColumnName("PerguntaSelecionadaPacienteId");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PerguntaSelecionadaPacienteId"));
-
-                    b.Property<int>("ClassificacaoPacienteId")
-                        .HasColumnType("int")
-                        .HasColumnName("ClassificacaoPacienteId");
 
                     b.Property<int>("PacienteId")
                         .HasColumnType("int");
@@ -181,9 +152,6 @@ namespace SCRO.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RespostaSelecionadaPacienteId"));
-
-                    b.Property<int>("ClassificacaoPacienteId")
-                        .HasColumnType("int");
 
                     b.Property<int>("PacienteId")
                         .HasColumnType("int");
@@ -490,17 +458,6 @@ namespace SCRO.Migrations
                     b.Navigation("Pergunta");
                 });
 
-            modelBuilder.Entity("SCRO.Models.Classificacao.ClassificacaoPaciente", b =>
-                {
-                    b.HasOne("SCRO.Models.Cliente.Paciente", "Paciente")
-                        .WithOne("ClassificacaoPaciente")
-                        .HasForeignKey("SCRO.Models.Classificacao.ClassificacaoPaciente", "PacienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Paciente");
-                });
-
             modelBuilder.Entity("SCRO.Models.Classificacao.PerguntaSelecionadaPaciente", b =>
                 {
                     b.HasOne("SCRO.Models.Cliente.Paciente", "Paciente")
@@ -549,9 +506,6 @@ namespace SCRO.Migrations
 
             modelBuilder.Entity("SCRO.Models.Cliente.Paciente", b =>
                 {
-                    b.Navigation("ClassificacaoPaciente")
-                        .IsRequired();
-
                     b.Navigation("PerguntaSelecionadaPaciente")
                         .IsRequired();
 

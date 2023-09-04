@@ -6,8 +6,8 @@ namespace SCRO.Models.Classificacao
     public class Resposta
     {
         public int RespostaId { get; set; }
-        public string RespostaTexto { get; set; }   
-        public string RespostaTextoArea { get; set; }
+        public bool  RespostaTexto { get; set; }  //trocar para bool 
+        public bool RespostaTextoArea { get; set; } //trocar para bool
         public string RespostaCheckBox { get; set; }
         public string RespostaComboBox { get; set; }
         public string RespostaRadioButtom { get; set; }

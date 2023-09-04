@@ -8,6 +8,8 @@ class Program
         var a = new Resposta();
         a.TipoResposta = TipoResposta.Text;
         Console.Write(a.TipoResposta);
+
+      
     }
 }
 // PacienteController paciente = new PacienteController();
